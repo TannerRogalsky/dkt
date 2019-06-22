@@ -18,9 +18,7 @@ pub struct TTTElementsIterator {
 
 impl TTTElementsIterator {
     pub fn new(start: TTTElements) -> Self {
-        TTTElementsIterator {
-            current: start,
-        }
+        TTTElementsIterator { current: start }
     }
 }
 
@@ -56,7 +54,7 @@ pub struct TicTacToe {
 impl TicTacToe {
     pub fn new() -> Self {
         TicTacToe {
-            elements: [None; 9]
+            elements: [None; 9],
         }
     }
 
