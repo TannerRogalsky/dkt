@@ -16,10 +16,22 @@ fn get_position() -> (usize, usize) {
 
 fn main() {
     let mut t = TicTacToe::new();
+    let mut iter = TTTElementsIterator::new(TTTElements::X);
 
-    for element in TTTElementsIterator::new(TTTElements::X) {
-        let (row_index, col_index) = get_position();
-        t.set(row_index, col_index, element);
+    while !t.is_game_over() {
+        let element = iter.next().unwrap();
+        loop {
+            let (row_index, col_index) = get_position();
+            match t.set(row_index, col_index, element) {
+                Ok(_) => {
+                    if let Some(e) = t.is_game_won() {
+                        println!("{:?} won the game!", e);
+                    }
+                    break;
+                }
+                Err(err) => println!("{}", err),
+            }
+        }
         println!("{:?}", t);
     }
 }
