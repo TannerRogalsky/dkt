@@ -51,11 +51,6 @@ pub struct TicTacToe {
     elements: [Option<TTTElements>; 9],
 }
 
-/// - Handle invalid row & column values
-/// - Handle existing value at coordinates
-/// - fn is_win?() returns Element that won
-/// - unwinnable state is array is full but win is false
-
 impl TicTacToe {
     pub fn new() -> Self {
         TicTacToe {
@@ -89,7 +84,7 @@ impl TicTacToe {
 
     pub fn is_game_won(&self) -> Option<TTTElements> {
         // check rows
-        for x in 0..3 {
+        for x in 0..WIDTH {
             if (self.get(x, 0).is_some())
                 && (self.get(x, 0) == self.get(x, 1))
                 && (self.get(x, 1) == self.get(x, 2))
@@ -99,7 +94,7 @@ impl TicTacToe {
         }
 
         // check cols
-        for y in 0..3 {
+        for y in 0..HEIGHT {
             if (self.get(0, y).is_some())
                 && (self.get(0, y) == self.get(1, y))
                 && (self.get(1, y) == self.get(2, y))
@@ -109,6 +104,18 @@ impl TicTacToe {
         }
 
         // check diagonal
+        if (self.get(0, 0).is_some())
+            && (self.get(0, 0) == self.get(1, 1))
+            && (self.get(1, 1) == self.get(2, 2))
+        {
+            return self.get(1, 1);
+        }
+        if (self.get(0, 2).is_some())
+            && (self.get(0, 2) == self.get(1, 1))
+            && (self.get(1, 1) == self.get(2, 0))
+        {
+            return self.get(1, 1);
+        }
 
         None
     }
